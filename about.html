@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #00ffff, purple, #00d9d9, #0099ff);
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #000000;
+            padding: 10px 0;
+            animation: bounceIn 1.5s ease forwards;
+        }
+        .header .navbar-brand {
+            font-size: 1.5rem;
+            color: #ffffff;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1.2s;
+        }
+        .header .navbar-nav .nav-item .nav-link {
+            color: #ffffff;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 1.2s;
+        }
+        .active {
+            background-color: purple;
+        }
+
+        /* Download Resume Button */
+        .download-btn {
+            background-color: #41c9ff;
+            color: #000000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .download-btn:hover {
+            background-color: #444444;
+            color: #ffffff;
+        }
+
+        /* About Section */
+        .about-section {
+            background-color: #222222;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1.5s ease forwards 0.5s;
+        }
+        .about-section h2 {
+            color: #47cbff;  
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .about-section h3 {
+            color: #47cbff;
+        }
+
+        /* Carousel Styling */
+        .carousel {
+            position: relative;
+            display: block;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%;
+        }
+        .carousel-images img {
+            flex-shrink: 0;  
+            width: 100%;     
+            height: auto;    
+            max-width: 100%; 
+            border-radius: 8px;
+        }
+        
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #ffffff;
+            cursor: pointer;
+            user-select: none;
+        }
+        .carousel-control.prev {
+            left: 10px;
+        }
+        .carousel-control.next {
+            right: 10px;
+        }
+
+        #backToTopBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #47cbff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none; 
+            transition: background-color 0.3s ease;
+        }
+        #backToTopBtn:hover {
+            background-color: purple;
+        }
+
+        .interests-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .interest-item {
+            background-color: #333333;
+            color: #84ff41;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            animation: fadeInScale 0.8s ease forwards;
+            opacity: 0;
+        }
+        .interest-item:nth-child(1) { animation-delay: 0.5s; }
+        .interest-item:nth-child(2) { animation-delay: 0.6s; }
+        .interest-item:nth-child(3) { animation-delay: 0.7s; }
+        .interest-item:nth-child(4) { animation-delay: 0.8s; }
+        .interest-item:nth-child(5) { animation-delay: 0.9s; }
+        .interest-item:hover {
+            background-color: #84ff41;
+            color: #222222;
+            transform: scale(1.1);
+        }
+
+        /* Keyframe Animations */
+        @keyframes bounceIn {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-15px);
+            }
+            60% {
+                transform: translateY(-8px);
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .navbar-nav .nav-item .nav-link {
+                padding: 12px 15px;
+                font-size: 1rem; /* Adjust font size for mobile */
+            }
+
+            .carousel-control {
+                font-size: 2.5rem;
+                padding: 10px;
+            }
+
+            .about-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .about-section h3 {
+                font-size: 1.4rem;
+            }
+
+            .download-btn {
+                padding: 12px 25px;
+            }
+
+            #backToTopBtn {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-nav .nav-item .nav-link {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+
+            .about-section h2 {
+                font-size: 1.6rem;
+            }
+
+            .about-section h3 {
+                font-size: 1.3rem;
+            }
+
+            .download-btn {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+
+            #backToTopBtn {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">KISHORE RELANGI</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="skills.html">Skills</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="portfolio.html">Portfolio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link download-btn" href="KISHORE KUMAR.pdf" download target="_blank">Download Resume</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="about-section">
+            <h2>About Me</h2>
+            <p>Aspiring UI/UX Developer and Designer based in Vishakapatnam, eager to leverage technical skills in development and design to contribute effectively to team projects and drive creative digital solutions.</p>
+            <p><strong>Certification:</strong> Completed UI/UX Developer Certification from Tech Mahindra SMART Academy, Vishakapatnam.</p>
+
+            <h3>Educational Qualifications</h3>
+            <div class="education-item">
+                <h4>Graduation (B.Voc Web Technology)</h4>
+                <p>GOVT COLLEGE (AUTONOMOUS)-RAJAHMUNDRY, 2021 -2024</p>
+                <P>Percentage: 80%</P>
+            </div>
+            <div class="education-item">
+                <h4>Intermediate (MPC)</h4>
+                <p>SRICHAITANYA JUNIOR COLLOGE,RAJAHMUNDRY, 2019 - 2021</p>
+                <p>Percentage: 70%</p>
+            </div>
+            <div class="education-item">
+                <h4>10TH(SSC)</h4>
+                <p>SKVT EM AIDED HIGH SCHOOL, 2018 - 2019</p>
+                <p>Percentage: 85%</p>
+            </div>
+
+            <h3>Interests</h3>
+            <div class="interests-list">
+                <div class="interest-item">Front-End Development</div>
+                <div class="interest-item">Prototyping</div>
+                <div class="interest-item">AI & ML</div>
+                <div class="interest-item">Canva</div>
+                <div class="interest-item">Mockup Screens</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" onclick="scrollToTop()">&#8593;</button>
+
+    <script>
+        // Back to Top Button Logic
+const backToTopBtn = document.getElementById("backToTopBtn");
+
+// Show the back-to-top button when scrolling down, and hide it when near the top
+window.onscroll = () => {
+    backToTopBtn.style.display = window.pageYOffset > 200 ? "block" : "none";
+};
+
+// Smooth scroll to top when the button is clicked
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// Carousel Logic
+const carouselImages = document.getElementById("carouselImages");
+let currentIndex = 0;
+
+function nextSlide() {
+    // Move to the next image
+    currentIndex = (currentIndex + 1) % carouselImages.children.length;
+    updateCarousel();
+}
+
+function prevSlide() {
+    // Move to the previous image
+    currentIndex = (currentIndex - 1 + carouselImages.children.length) % carouselImages.children.length;
+    updateCarousel();
+}
+
+function updateCarousel() {
+    // Shift carousel images left/right based on the current index
+    const offset = -currentIndex * 100;
+    carouselImages.style.transform = `translateX(${offset}%)`;
+}
+
+// Add event listeners to the carousel controls (optional if you want clickable arrows)
+document.getElementById("carouselNext").addEventListener("click", nextSlide);
+document.getElementById("carouselPrev").addEventListener("click", prevSlide);
+
+    </script>
+
+</body>
+</html>
